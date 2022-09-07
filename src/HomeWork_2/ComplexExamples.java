@@ -1,6 +1,11 @@
 package HomeWork_2;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class ComplexExamples {
@@ -105,13 +110,18 @@ public class ComplexExamples {
         System.out.println("\nTask 2 solution:");
         int[] arrayOfNumbers = new int[]{3, 4, 2, 7};
         System.out.println(Arrays.toString(getPairOfNumbers(arrayOfNumbers, 10)));
-
+        System.out.println("\nTask 3 solution:");
+        System.out.println(fuzzySearch("car", "ca6$$#_rtwheel")); // true
+        System.out.println(fuzzySearch("cwhl", "cartwheel")); // true
+        System.out.println(fuzzySearch("cwhee", "cartwheel")); // true
+        System.out.println(fuzzySearch("cartwheel", "cartwheel")); // true
+        System.out.println(fuzzySearch("cwheeel", "cartwheel")); // false
+        System.out.println(fuzzySearch("lw", "cartwheel")); // false
 
         /*
-        Task1
-            Убрать дубликаты, отсортировать по идентификатору, сгруппировать по имени
-
-            Что должно получиться
+        Task1:
+            Убрать дубликаты, отсортировать по идентификатору, сгруппировать по имени.
+            Что должно получиться:
                 Key: Amelia
                 Value:4
                 Key: Emily
@@ -120,22 +130,12 @@ public class ComplexExamples {
                 Value:3
                 Key: Jack
                 Value:1
-         */
 
+        Task2:
+            [3, 4, 2, 7], 10 -> [3, 7] - вывести пару менно в скобках, которые дают сумму - 10.
 
-
-        /*
-        Task2
-
-            [3, 4, 2, 7], 10 -> [3, 7] - вывести пару менно в скобках, которые дают сумму - 10
-         */
-
-
-
-        /*
-        Task3
-            Реализовать функцию нечеткого поиска
-            
+        Task3:
+            Реализовать функцию нечеткого поиска:
                     fuzzySearch("car", "ca6$$#_rtwheel"); // true
                     fuzzySearch("cwhl", "cartwheel"); // true
                     fuzzySearch("cwhee", "cartwheel"); // true
@@ -143,10 +143,7 @@ public class ComplexExamples {
                     fuzzySearch("cwheeel", "cartwheel"); // false
                     fuzzySearch("lw", "cartwheel"); // false
          */
-
-
     }
-
 
     //Task 2 solution
     public static int[] getPairOfNumbers(int[] array, int target) {
@@ -161,6 +158,11 @@ public class ComplexExamples {
         return array;
     }
 
-
-
+    //Task 3 solution
+    public static boolean fuzzySearch(String required, String source) {
+        String regEx = String.join(".*?", required.split(""));
+        Pattern pattern = Pattern.compile(regEx);
+        Matcher matcher = pattern.matcher(source);
+        return matcher.find();
+    }
 }
