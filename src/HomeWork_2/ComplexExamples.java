@@ -1,7 +1,6 @@
 package HomeWork_2;
 
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ComplexExamples {
@@ -98,11 +97,15 @@ public class ComplexExamples {
         System.out.println();
         System.out.println("Duplicate filtered, grouped by name, sorted by name and id:");
         System.out.println();
-        //Task1 solution
+        System.out.println("Task1 solution:");
         Arrays.stream(RAW_DATA)
                 .distinct()
                 .collect(Collectors.groupingBy(Person::getName))
                 .forEach((k, v) -> System.out.println("Key: " + k + "\nValue: " + v.size()));
+        System.out.println("\nTask 2 solution:");
+        int[] arrayOfNumbers = new int[]{3, 4, 2, 7};
+        System.out.println(Arrays.toString(getPairOfNumbers(arrayOfNumbers, 10)));
+
 
         /*
         Task1
@@ -143,4 +146,21 @@ public class ComplexExamples {
 
 
     }
+
+
+    //Task 2 solution
+    public static int[] getPairOfNumbers(int[] array, int target) {
+        Map<Integer, Integer> setsOfNumbers = new HashMap<>();
+        for (int i = 0; i < array.length; i++) {
+            Integer set = setsOfNumbers.get(array[i]);
+            if (set != null) {
+                return new int[]{set, array[i]};
+            }
+            setsOfNumbers.put(target - array[i], array[i]);
+        }
+        return array;
+    }
+
+
+
 }
