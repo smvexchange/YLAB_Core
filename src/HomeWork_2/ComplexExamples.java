@@ -102,15 +102,17 @@ public class ComplexExamples {
         System.out.println();
         System.out.println("Duplicate filtered, grouped by name, sorted by name and id:");
         System.out.println();
-        System.out.println("Task1 solution:");
+        System.out.println("Task 1 result:");
+        //Task 1 solution
         Arrays.stream(RAW_DATA)
                 .distinct()
                 .collect(Collectors.groupingBy(Person::getName))
                 .forEach((k, v) -> System.out.println("Key: " + k + "\nValue: " + v.size()));
-        System.out.println("\nTask 2 solution:");
+
+        System.out.println("\nTask 2 result:");
         int[] arrayOfNumbers = new int[]{3, 4, 2, 7};
         System.out.println(Arrays.toString(getPairOfNumbers(arrayOfNumbers, 10)));
-        System.out.println("\nTask 3 solution:");
+        System.out.println("\nTask 3 result:");
         System.out.println(fuzzySearch("car", "ca6$$#_rtwheel")); // true
         System.out.println(fuzzySearch("cwhl", "cartwheel")); // true
         System.out.println(fuzzySearch("cwhee", "cartwheel")); // true
@@ -148,12 +150,12 @@ public class ComplexExamples {
     //Task 2 solution
     public static int[] getPairOfNumbers(int[] array, int target) {
         Map<Integer, Integer> setsOfNumbers = new HashMap<>();
-        for (int i = 0; i < array.length; i++) {
-            Integer set = setsOfNumbers.get(array[i]);
+        for (int number : array) {
+            Integer set = setsOfNumbers.get(number);
             if (set != null) {
-                return new int[]{set, array[i]};
+                return new int[]{set, number};
             }
-            setsOfNumbers.put(target - array[i], array[i]);
+            setsOfNumbers.put(target - number, number);
         }
         return array;
     }
