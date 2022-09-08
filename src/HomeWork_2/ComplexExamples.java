@@ -1,9 +1,6 @@
 package HomeWork_2;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -106,6 +103,7 @@ public class ComplexExamples {
         //Task 1 solution
         Arrays.stream(RAW_DATA)
                 .distinct()
+                .sorted(Comparator.comparingInt(Person::getId))
                 .collect(Collectors.groupingBy(Person::getName))
                 .forEach((k, v) -> System.out.println("Key: " + k + "\nValue: " + v.size()));
 
@@ -157,7 +155,7 @@ public class ComplexExamples {
             }
             setsOfNumbers.put(target - number, number);
         }
-        return array;
+        throw new NoSuchElementException("For target " + target + " no such elements");
     }
 
     //Task 3 solution

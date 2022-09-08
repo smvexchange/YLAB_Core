@@ -2,6 +2,8 @@ package HomeWork_2;
 
 import org.junit.Test;
 
+import java.util.NoSuchElementException;
+
 import static org.junit.Assert.*;
 
 public class ComplexExamplesTest {
@@ -12,11 +14,11 @@ public class ComplexExamplesTest {
     int targetSumTest3 = 2;
     int[] arrayTest3 = new int[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};    // [1, 1]
     int targetSumTest4 = 1;
-    int[] arrayTest4 = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};    // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    int[] arrayTest4 = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};    // throw NoSuchElementException
     int targetSumTest5 = 17;
-    int[] arrayTest5 = new int[]{2, 4, 1, 4, 6, 1, 2, 2, 3, 7, 3, 9, 4};    // [2, 4, 1, 4, 6, 1, 2, 2, 3, 7, 3, 9, 4]
+    int[] arrayTest5 = new int[]{2, 4, 1, 4, 6, 1, 2, 2, 3, 7, 3, 9, 4};    // throw NoSuchElementException
     int targetSumTest6 = 2;
-    int[] arrayTest6 = new int[]{};                                         // []
+    int[] arrayTest6 = new int[]{};                                         // throw NoSuchElementException
 
     @Test
     public void getPairOfNumbersTarget10() {
@@ -31,30 +33,27 @@ public class ComplexExamplesTest {
         int[] actual = {8, 4};
         assertArrayEquals(expected, actual);
     }
+
     @Test
     public void getPairOfSameNumbersTarget2() {
         int[] expected = ComplexExamples.getPairOfNumbers(arrayTest3, targetSumTest3);
         int[] actual = {1, 1};
         assertArrayEquals(expected, actual);
     }
-    @Test
+
+    @Test(expected = NoSuchElementException.class)
     public void getPairOfZeroNumbersTarget1() {
-        int[] expected = ComplexExamples.getPairOfNumbers(arrayTest4, targetSumTest4);
-        int[] actual = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        assertArrayEquals(expected, actual);
-    }
-    @Test
-    public void getPairOfNumbersTarget17() {
-        int[] expected = ComplexExamples.getPairOfNumbers(arrayTest5, targetSumTest5);
-        int[] actual = {2, 4, 1, 4, 6, 1, 2, 2, 3, 7, 3, 9, 4};
-        assertArrayEquals(expected, actual);
+        ComplexExamples.getPairOfNumbers(arrayTest4, targetSumTest4);
     }
 
-    @Test
+    @Test(expected = NoSuchElementException.class)
+    public void getPairOfNumbersTarget17() {
+        ComplexExamples.getPairOfNumbers(arrayTest5, targetSumTest5);
+    }
+
+    @Test(expected = NoSuchElementException.class)
     public void getPairOfNumbersEmpty() {
-        int[] expected = ComplexExamples.getPairOfNumbers(arrayTest6, targetSumTest6);
-        int[] actual = {};
-        assertArrayEquals(expected, actual);
+        ComplexExamples.getPairOfNumbers(arrayTest6, targetSumTest6);
     }
 
 
@@ -63,26 +62,31 @@ public class ComplexExamplesTest {
         assertTrue(ComplexExamples.fuzzySearch("car", "ca6$$#_rtwheel")); // true
 
     }
+
     @Test
     public void fuzzySearchCwhl() {
         assertTrue(ComplexExamples.fuzzySearch("cwhl", "cartwheel")); // true
 
     }
+
     @Test
     public void fuzzySearchCwhee() {
         assertTrue(ComplexExamples.fuzzySearch("cwhee", "cartwheel")); // true
 
     }
+
     @Test
     public void fuzzySearchCartwheel() {
         assertTrue(ComplexExamples.fuzzySearch("cartwheel", "cartwheel")); // true
 
     }
+
     @Test
     public void fuzzySearchCwheeel() {
         assertFalse(ComplexExamples.fuzzySearch("cwheeel", "cartwheel")); // false
 
     }
+
     @Test
     public void fuzzySearchLw() {
         assertFalse(ComplexExamples.fuzzySearch("lw", "cartwheel")); // false
