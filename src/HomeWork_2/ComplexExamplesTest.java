@@ -1,7 +1,11 @@
 package HomeWork_2;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;
@@ -19,6 +23,82 @@ public class ComplexExamplesTest {
     int[] arrayTest5 = new int[]{2, 4, 1, 4, 6, 1, 2, 2, 3, 7, 3, 9, 4};    // throw NoSuchElementException
     int targetSumTest6 = 2;
     int[] arrayTest6 = new int[]{};                                         // throw NoSuchElementException
+
+    private final ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+    @Before
+    public void setUpStreams() {
+        System.setOut(new PrintStream(output));
+    }
+
+    @After
+    public void cleanUpStreams() {
+        System.setOut(null);
+    }
+
+    @Test
+    public void processingArrayOfObjectsTest1() {
+        ComplexExamples.Person[] arrayStreamTest = new ComplexExamples.Person[]{
+                new ComplexExamples.Person(0, "Harry"),
+                new ComplexExamples.Person(0, "Harry"),
+                new ComplexExamples.Person(0, "Emily"),
+                new ComplexExamples.Person(0, "Emily"),
+                new ComplexExamples.Person(0, "Jack"),
+                new ComplexExamples.Person(0, "Jack")};
+        ComplexExamples.processingArrayOfObjects(arrayStreamTest);
+        assertEquals("Key: Emily\nValue:1\nKey: Harry\nValue:1\nKey: Jack\nValue:1\n", output.toString());
+    }
+
+    @Test
+    public void processingArrayOfObjectsTest2() {
+        ComplexExamples.Person[] arrayStreamTest = new ComplexExamples.Person[]{
+                new ComplexExamples.Person(0, "Harry"),
+                new ComplexExamples.Person(1, "Harry"),
+                new ComplexExamples.Person(2, "Harry"),
+                new ComplexExamples.Person(3, "Harry"),
+                new ComplexExamples.Person(4, "Harry"),
+                new ComplexExamples.Person(5, "Harry")};
+        ComplexExamples.processingArrayOfObjects(arrayStreamTest);
+        assertEquals("Key: Harry\nValue:6\n", output.toString());
+    }
+
+    @Test
+    public void processingArrayOfObjectsTest3() {
+        ComplexExamples.Person[] arrayStreamTest = new ComplexExamples.Person[]{
+                new ComplexExamples.Person(0, "Harry"),
+                new ComplexExamples.Person(0, "Harry"), // дубликат
+                new ComplexExamples.Person(1, "Harry"), // тёзка
+                new ComplexExamples.Person(2, "Harry"),
+                new ComplexExamples.Person(3, "Emily"),
+                new ComplexExamples.Person(4, "Jack"),
+                new ComplexExamples.Person(4, "Jack"),
+                new ComplexExamples.Person(5, "Amelia"),
+                new ComplexExamples.Person(5, "Amelia"),
+                new ComplexExamples.Person(6, "Amelia"),
+                new ComplexExamples.Person(7, "Amelia"),
+                new ComplexExamples.Person(8, "Amelia")};
+        ComplexExamples.processingArrayOfObjects(arrayStreamTest);
+        assertEquals("Key: Amelia\nValue:4\nKey: Emily\nValue:1\nKey: Harry\nValue:3\nKey: Jack\nValue:1\n", output.toString());
+    }
+
+    @Test
+    public void processingArrayOfObjectsTest4() {
+        ComplexExamples.Person[] arrayStreamTest = new ComplexExamples.Person[]{
+                new ComplexExamples.Person(0, "Harry"),
+                new ComplexExamples.Person(5, "Amelia"),
+                new ComplexExamples.Person(0, "Harry"), // дубликат
+                new ComplexExamples.Person(3, "Emily"),
+                new ComplexExamples.Person(2, "Harry"),
+                new ComplexExamples.Person(5, "Amelia"),
+                new ComplexExamples.Person(1, "Harry"), // тёзка
+                new ComplexExamples.Person(4, "Jack"),
+                new ComplexExamples.Person(6, "Amelia"),
+                new ComplexExamples.Person(4, "Jack"),
+                new ComplexExamples.Person(8, "Amelia"),
+                new ComplexExamples.Person(7, "Amelia")};
+        ComplexExamples.processingArrayOfObjects(arrayStreamTest);
+        assertEquals("Key: Amelia\nValue:4\nKey: Emily\nValue:1\nKey: Harry\nValue:3\nKey: Jack\nValue:1\n", output.toString());
+    }
 
     @Test
     public void getPairOfNumbersTarget10() {

@@ -99,13 +99,9 @@ public class ComplexExamples {
         System.out.println();
         System.out.println("Duplicate filtered, grouped by name, sorted by name and id:");
         System.out.println();
+
         System.out.println("Task 1 result:");
-        //Task 1 solution
-        Arrays.stream(RAW_DATA)
-                .distinct()
-                .sorted(Comparator.comparingInt(Person::getId))
-                .collect(Collectors.groupingBy(Person::getName))
-                .forEach((k, v) -> System.out.println("Key: " + k + "\nValue: " + v.size()));
+        processingArrayOfObjects(RAW_DATA);
 
         System.out.println("\nTask 2 result:");
         int[] arrayOfNumbers = new int[]{3, 4, 2, 7};
@@ -143,6 +139,14 @@ public class ComplexExamples {
                     fuzzySearch("cwheeel", "cartwheel"); // false
                     fuzzySearch("lw", "cartwheel"); // false
          */
+    }
+    //Task 1 solution
+    public static void processingArrayOfObjects(Person[] array) {
+        Arrays.stream(array)
+                .distinct()
+                .sorted(Comparator.comparingInt(Person::getId))
+                .collect(Collectors.groupingBy(Person::getName))
+                .forEach((k, v) -> System.out.println("Key: " + k + "\nValue:" + v.size()));
     }
 
     //Task 2 solution
