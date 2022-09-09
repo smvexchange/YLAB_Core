@@ -140,8 +140,12 @@ public class ComplexExamples {
                     fuzzySearch("lw", "cartwheel"); // false
          */
     }
+
     //Task 1 solution
     public static void processingArrayOfObjects(Person[] array) {
+        if (array == null) {
+            throw new IllegalArgumentException("Array cannot be null");
+        }
         Arrays.stream(array)
                 .distinct()
                 .sorted(Comparator.comparingInt(Person::getId))
@@ -151,6 +155,9 @@ public class ComplexExamples {
 
     //Task 2 solution
     public static int[] getPairOfNumbers(int[] array, int target) {
+        if (array == null) {
+            throw new IllegalArgumentException("Array cannot be null");
+        }
         Map<Integer, Integer> setsOfNumbers = new HashMap<>();
         for (int number : array) {
             Integer set = setsOfNumbers.get(number);
@@ -164,6 +171,9 @@ public class ComplexExamples {
 
     //Task 3 solution
     public static boolean fuzzySearch(String required, String source) {
+        if (required == null || source == null) {
+            throw new IllegalArgumentException("Arguments cannot be null");
+        }
         String regEx = String.join(".*?", required.split(""));
         Pattern pattern = Pattern.compile(regEx);
         Matcher matcher = pattern.matcher(source);

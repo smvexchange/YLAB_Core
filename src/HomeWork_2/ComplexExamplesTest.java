@@ -136,7 +136,6 @@ public class ComplexExamplesTest {
         ComplexExamples.getPairOfNumbers(arrayTest6, targetSumTest6);
     }
 
-
     @Test
     public void fuzzySearchCar() {
         assertTrue(ComplexExamples.fuzzySearch("car", "ca6$$#_rtwheel")); // true
