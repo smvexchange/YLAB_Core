@@ -1,8 +1,6 @@
 package HomeWork_2;
 
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class ComplexExamples {
@@ -141,19 +139,17 @@ public class ComplexExamples {
          */
     }
 
-    //Task 1 solution
     public static void processingArrayOfObjects(Person[] array) {
         if (array == null) {
             throw new IllegalArgumentException("Array cannot be null");
         }
-        Arrays.stream(array)
+        Map<String, Long> map = Arrays.stream(array)
                 .distinct()
                 .sorted(Comparator.comparingInt(Person::getId))
-                .collect(Collectors.groupingBy(Person::getName))
-                .forEach((k, v) -> System.out.println("Key: " + k + "\nValue:" + v.size()));
+                .collect(Collectors.groupingBy(Person::getName, HashMap::new, Collectors.counting()));
+        map.forEach((k, v) -> System.out.print("Key: " + k + "\nValue:" + v + "\n"));
     }
 
-    //Task 2 solution
     public static int[] getPairOfNumbers(int[] array, int target) {
         if (array == null) {
             throw new IllegalArgumentException("Array cannot be null");
@@ -169,14 +165,20 @@ public class ComplexExamples {
         throw new NoSuchElementException("For target " + target + " no such elements");
     }
 
-    //Task 3 solution
     public static boolean fuzzySearch(String required, String source) {
         if (required == null || source == null) {
             throw new IllegalArgumentException("Arguments cannot be null");
         }
-        String regEx = String.join(".*?", required.split(""));
-        Pattern pattern = Pattern.compile(regEx);
-        Matcher matcher = pattern.matcher(source);
-        return matcher.find();
+        StringBuilder tmpString = new StringBuilder();
+        int index = 0;
+        int count = 0;
+        while (index < required.length() && count < source.length()) {
+            if (source.charAt(count) == required.charAt(index)) {
+                tmpString.append(source.charAt(count));
+                index++;
+            }
+            count++;
+        }
+        return required.equals(String.valueOf(tmpString));
     }
 }
