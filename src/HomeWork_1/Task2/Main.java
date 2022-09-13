@@ -1,4 +1,4 @@
-package Task2;
+package HomeWork_1.Task2;
 
 public class Main {
 
